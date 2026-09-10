@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>个人简历 — Kevin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a class="brand" href="#">Kevin</a>
+      <button class="nav-toggle" aria-label="打开导航">☰</button>
+      <ul class="nav-links">
+        <li><a href="#about">关于</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#experience">经历</a></li>
+        <li><a href="#projects">项目</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="hero" class="hero container reveal">
+      <div class="hero-left">
+        <h1>你好，我是 Kevin</h1>
+        <p class="lead">前端工程师 · UI 爱好者 · 擅长构建现代响应式网站与交互体验</p>
+        <p class="quick">
+          位于：中国 · 可远程 · 欢迎联系合作
+        </p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#projects">查看作品</a>
+          <a class="btn ghost" href="#contact">联系我们</a>
+        </div>
+      </div>
+      <aside class="hero-right">
+        <!-- 简单 SVG 作为头像占位 -->
+        <div class="avatar">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Profile">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="#6C5CE7"/>
+                <stop offset="1" stop-color="#00b894"/>
+              </linearGradient>
+            </defs>
+            <rect width="120" height="120" rx="18" fill="url(#g)" />
+            <g transform="translate(20,20)" fill="#fff">
+              <circle cx="40" cy="28" r="16" opacity="0.95" />
+              <rect x="6" y="56" width="68" height="28" rx="8" opacity="0.9" />
+            </g>
+          </svg>
+        </div>
+        <div class="at-a-glance">
+          <div><strong>经验</strong><span>4 年</span></div>
+          <div><strong>擅长</strong><span>React / Vue / HTML / CSS</span></div>
+          <div><strong>语言</strong><span>中文、英语</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="panel container reveal">
+      <h2>个人信息</h2>
+      <p>我是一名前端工程师，专注于构建高质量的用户界面与流畅的交互体验。对视觉细节与性能优化有较高关注，喜欢把产品的设计感和可用性融合在一起。</p>
+    </section>
+
+    <section id="skills" class="panel container reveal">
+      <h2>技能特长</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>前端</h3>
+          <p>HTML5, CSS3, JavaScript (ES6+), TypeScript</p>
+        </div>
+        <div class="skill-card">
+          <h3>框架</h3>
+          <p>React, Vue, Next.js, Nuxt</p>
+        </div>
+        <div class="skill-card">
+          <h3>工程化</h3>
+          <p>Vite, Webpack, Git, CI/CD</p>
+        </div>
+        <div class="skill-card">
+          <h3>设计 & 动效</h3>
+          <p>Figma, 动画、微交互、响应式布局</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="panel container reveal">
+      <h2>工作经历</h2>
+      <div class="timeline">
+        <article class="timeline-item">
+          <h3>高级前端工程师 · 某科技公司</h3>
+          <span class="meta">2022 - 现在</span>
+          <p>负责公司主站与后台系统的前端架构、性能优化与组件化建设。带领小组完成若干核心功能模块。</p>
+        </article>
+        <article class="timeline-item">
+          <h3>前端工程师 · XXX 初创公司</h3>
+          <span class="meta">2019 - 2022</span>
+          <p>参与产品从 0 到 1 的开发，构建响应式页面并实现复杂交互逻辑。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="panel container reveal">
+      <h2>项目展示</h2>
+      <div class="projects-grid">
+        <a class="project-card" href="#" target="_blank">
+          <div class="thumb"></div>
+          <h3>交互式数据仪表盘</h3>
+          <p>基于 React + D3 的可视化仪表盘，支持大数据量的流畅渲染与交互。</p>
+        </a>
+        <a class="project-card" href="#" target="_blank">
+          <div class="thumb"></div>
+          <h3>移动端电商页面</h3>
+          <p>以性能优先，使用 SSR 与懒加载技术提升首屏速度与转化率。</p>
+        </a>
+        <a class="project-card" href="#" target="_blank">
+          <div class="thumb"></div>
+          <h3>组件库与设计系统</h3>
+          <p>构建可复用组件与文档站，支持主题切换与无障碍优化。</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="contact" class="panel container reveal">
+      <h2>联系方式</h2>
+      <p>欢迎通过以下方式联系我：</p>
+      <ul class="contacts">
+        <li>Email: <a href="mailto:kevin@example.com">kevin@example.com</a></li>
+        <li>GitHub: <a href="https://github.com/Kevin-kd-23" target="_blank">@Kevin-kd-23</a></li>
+        <li>手机: <a href="tel:+8613812345678">+86 138 1234 5678</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© 2026 Kevin. 版权所有.</small>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
