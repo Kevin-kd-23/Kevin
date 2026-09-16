@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelector('[data-navigation]').innerHTML = data.navigation.map(item => `<li><a href="#${item.target}">${item.label}</a></li>`).join('');
 
     document.querySelector('[data-module="hero"]').innerHTML = `
-      <div class="hero-left"><h1>${data.profile.headline}</h1><p class="lead">${data.profile.role} · ${data.profile.introduction}</p><p class="quick">${data.profile.location}</p><div class="hero-cta"><a class="btn primary" href="#projects">查看作品</a><a class="btn ghost" href="#contact">联系我们</a></div></div>
-      <aside class="hero-right"><div class="avatar"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${data.profile.avatarLabel}"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#6C5CE7"/><stop offset="1" stop-color="#00b894"/></linearGradient></defs><rect width="120" height="120" rx="18" fill="url(#g)"/><g transform="translate(20,20)" fill="#fff"><circle cx="40" cy="28" r="16" opacity=".95"/><rect x="6" y="56" width="68" height="28" rx="8" opacity=".9"/></g></svg><img class="avatar-photo" src="${data.profile.avatarImage}" alt="${data.profile.name} 的照片" /></div><div class="at-a-glance">${data.profile.summary.map(item => `<div><strong>${item.label}</strong><span>${item.value}</span></div>`).join('')}</div></aside>`;
+      <div class="hero-left"><span class="hero-kicker">PERSONAL PROFILE / 2026</span><h1>${data.profile.headline}</h1><p class="lead">${data.profile.role} · ${data.profile.introduction}</p><p class="quick">${data.profile.location}</p><div class="hero-cta"><a class="btn primary" href="#projects">查看作品</a><a class="btn ghost" href="#contact">联系我们</a></div></div>`;
     document.querySelector('[data-module="about"]').innerHTML = `<h2>${data.about.title}</h2><p>${data.about.content}</p>`;
     document.querySelector('[data-module="skills"]').innerHTML = `<h2>${data.sections.skills}</h2><div class="skills-grid">${data.skills.map(skill => `<div class="skill-card"><h3>${skill.title}</h3><p>${skill.content}</p></div>`).join('')}</div>`;
     document.querySelector('[data-module="metrics"]').innerHTML = `<div class="metrics-intro"><div><span class="section-kicker">04 / ${data.metrics.title}</span><h2>${data.metrics.title}</h2><p>${data.metrics.description}</p></div><div class="metrics-stats">${data.metrics.stats.map(stat => `<div><strong>${stat.value}</strong><span>${stat.label}</span></div>`).join('')}</div></div><div class="data-viz-module"><div class="viz-panel viz-bars"><span class="viz-label">${data.metrics.flowLabel}</span><div class="bar-chart">${Array.from({ length: 8 }, (_, index) => `<i style="--bar-height:${30 + ((index * 17) % 58)}%;--bar-delay:-${index * 0.3}s"></i>`).join('')}</div></div><div class="viz-panel viz-ring"><div class="progress-ring"><span>${data.metrics.stats[1].value}</span></div><span class="viz-label">${data.metrics.syncLabel}</span></div><div class="viz-panel viz-wave"><span class="viz-label">${data.metrics.activityLabel}</span><svg viewBox="0 0 180 52" preserveAspectRatio="none"><polyline points="0,39 15,34 28,42 42,20 55,29 69,12 82,26 96,23 112,36 127,18 142,28 158,8 180,17" /></svg></div></div>`;
@@ -20,6 +19,41 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelector('[data-module="contact"]').innerHTML = `<h2>${data.contact.title}</h2><p>${data.contact.description}</p><ul class="contacts">${data.contact.items.map(item => `<li>${item.label}: <a href="${item.href}" ${item.external ? 'target="_blank" rel="noreferrer"' : ''}>${item.value}</a></li>`).join('')}</ul>`;
   };
   render();
+
+  const route = () => {
+    const requestedPage = window.location.hash.slice(1) || 'top';
+    const pageId = requestedPage === 'top' ? 'hero' : requestedPage;
+    const activePage = document.getElementById(pageId) || document.getElementById('hero');
+    document.querySelectorAll('.page-section').forEach(section => {
+      section.classList.toggle('active', section === activePage);
+      section.classList.toggle('reveal', section === activePage);
+    });
+    document.querySelector('.nav-links')?.classList.remove('is-open');
+    document.querySelector('.nav-toggle')?.setAttribute('aria-expanded', 'false');
+  };
+  window.addEventListener('hashchange', route);
+  route();
+
+  const model = document.querySelector('[data-model]');
+  if (model) {
+    const views = modelViews;
+    let activeIndex = 0;
+    const updateModel = index => {
+      activeIndex = (index + views.length) % views.length;
+      const activeView = views[activeIndex];
+      model.querySelectorAll('.model-view').forEach(image => image.classList.toggle('is-selected', image.dataset.view === activeView.id));
+      model.querySelectorAll('.model-dot').forEach(dot => dot.classList.toggle('is-selected', dot.dataset.viewTarget === activeView.id));
+      model.querySelector('[data-model-label]').textContent = activeView.label;
+    };
+    model.querySelector('.model-prev')?.addEventListener('click', () => updateModel(activeIndex - 1));
+    model.querySelector('.model-next')?.addEventListener('click', () => updateModel(activeIndex + 1));
+    model.querySelectorAll('.model-dot').forEach((dot, index) => dot.addEventListener('click', () => updateModel(index)));
+    model.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') updateModel(activeIndex - 1);
+      if (event.key === 'ArrowRight') updateModel(activeIndex + 1);
+    });
+    model.tabIndex = 0;
+  }
 
   const ambientDecor = document.createElement('div');
   ambientDecor.className = 'ambient-decor';
@@ -102,31 +136,6 @@ document.addEventListener('DOMContentLoaded', function(){
       toggle && toggle.setAttribute('aria-expanded', 'false');
     }
   });
-
-  // 滚动 reveal：IntersectionObserver
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('show');
-        // 取消观察以提高性能
-        io.unobserve(e.target);
-      }
-    })
-  },{threshold:0.15});
-  reveals.forEach(r=>io.observe(r));
-
-  // 快速滚动或直接跳转时，补显示已经经过视口的模块。
-  const revealScrolledModules = () => {
-    reveals.forEach(module => {
-      const bounds = module.getBoundingClientRect();
-      if (bounds.top < window.innerHeight + 120 || bounds.bottom < 0) {
-        module.classList.add('show');
-      }
-    });
-  };
-  revealScrolledModules();
-  window.addEventListener('scroll', revealScrolledModules, { passive: true });
 
   // 鼠标滑过 project 卡片时添加轻微倾斜效果
   document.querySelectorAll('.project-card').forEach(card=>{

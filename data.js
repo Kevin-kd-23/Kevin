@@ -19,6 +19,13 @@ window.resumeData = {
       { label: '语言', value: '中文、英语' }
     ]
   },
+  characterModel: {
+    subtitle: '触碰查看头像',
+    name: 'Kevin',
+    views: [
+      { id: 'front', label: '主图', image: '微信图片_20260807233613_23_1.jpg' }
+    ]
+  },
   navigation: [
     { label: '关于', target: 'about' },
     { label: '技能', target: 'skills' },
