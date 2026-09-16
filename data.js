@@ -13,6 +13,11 @@ window.resumeData = {
     location: '中国 · 可远程 · 欢迎联系合作',
     avatarLabel: 'Profile',
     avatarImage: '微信图片_20260807233613_23_1.jpg',
+    avatarImages: [
+      '微信图片_20250113002833.jpg',
+      '微信图片_20260807233613_23_1.jpg',
+      '微信图片_20250113002833.jpg'
+    ],
     summary: [
       { label: '经验', value: '4 年' },
       { label: '擅长', value: 'React / Vue / HTML / CSS' },

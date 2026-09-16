@@ -40,7 +40,7 @@ button:hover, .btn:hover { transform:translateY(-4px); box-shadow:0 10px 24px rg
 button:active, .btn:active { transform:translateY(-1px) scale(.98); }
 button:focus-visible, a:focus-visible { outline:2px solid var(--accent2); outline-offset:4px; }
 
-.hero{display:grid;grid-template-columns:1fr;gap:32px;align-items:center;padding:12px 0;height:100%}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1.25fr);gap:32px;align-items:center;padding:12px 0;height:100%}
 .hero-left{max-width:640px}
 .hero-left h1{font-size:2.1rem;margin:0 0 12px;line-height:1.1}
 .hero-kicker{display:block;color:var(--accent2);font:10px/1 'DM Mono',monospace;letter-spacing:.16em;margin-bottom:18px}
@@ -51,7 +51,8 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--accent2); outlin
 .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#071026;box-shadow:0 8px 20px rgba(108,92,231,0.18);}
 .btn.ghost{border:1px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent}
 
-.hero-right{display:none}
+.hero-right{display:flex;justify-content:center;align-items:center;width:100%}
+.avatar-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:100%;max-width:540px}
 .hero-visuals{display:none}
 .character-model{display:none}
 .model-heading{display:none}
@@ -82,11 +83,13 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--accent2); outlin
 .character-model:focus-within .model-stage::before{opacity:1;pointer-events:auto;}
 .character-model:not(:hover):not(:focus-within) .model-stage::before{opacity:0.95;filter:blur(16px);}
 .character-model:not(:hover):not(:focus-within) .model-view{opacity:0;filter:blur(18px) brightness(0.55) saturate(0.6);}
-.avatar{position:relative;width:160px;height:160px;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(2,6,23,0.7)}
-.avatar svg,.avatar-photo{position:absolute;inset:0;width:160px;height:160px;border-radius:14px}
-.avatar-photo{object-fit:cover;object-position:center;opacity:0;transition:opacity .45s ease}
-.avatar:hover .avatar-photo{opacity:1}
-.avatar:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 20px 42px rgba(2,6,23,.55); }
+.avatar{position:relative;min-width:0;height:150px;border-radius:12px;overflow:hidden;background:#101a27;box-shadow:0 12px 30px rgba(2,6,23,0.7);cursor:crosshair;transition:transform .25s ease,box-shadow .25s ease}
+.avatar svg,.avatar-photo{position:absolute;inset:0;width:100%;height:100%;border-radius:12px}
+.avatar-photo{object-fit:cover;object-position:center;opacity:1;filter:blur(17px) brightness(.58) saturate(.7);transform:scale(1.08);transition:filter .35s ease,transform .35s ease}
+.avatar-hint{position:absolute;inset:auto 0 10px;text-align:center;color:rgba(255,255,255,.7);font:9px/1 'DM Mono',monospace;letter-spacing:.16em;transition:opacity .25s ease}
+.avatar:hover .avatar-photo,.avatar:focus-visible .avatar-photo{filter:blur(0) brightness(1) saturate(1);transform:scale(1)}
+.avatar:hover .avatar-hint,.avatar:focus-visible .avatar-hint{opacity:0}
+.avatar:hover,.avatar:focus-visible { transform:translateY(-6px) scale(1.02); box-shadow:0 20px 42px rgba(2,6,23,.55); }
 .at-a-glance{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;width:100%;display:flex;justify-content:space-between;color:var(--muted)}
 .at-a-glance div{display:flex;flex-direction:column;text-align:center}
 .at-a-glance strong{color:#fff}
@@ -118,7 +121,7 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--accent2); outlin
 
 /* 响应式 */
 @media (max-width:1000px){
-  .hero{grid-template-columns:1fr 280px}
+  .hero{grid-template-columns:1fr 360px}
   .skills-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
   .projects-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
 }
@@ -129,6 +132,8 @@ button:focus-visible, a:focus-visible { outline:2px solid var(--accent2); outlin
   .page-shell{height:calc(100vh - 65px)}
   .hero{grid-template-columns:1fr;gap:12px;padding-top:16px}
   .hero-right{flex-direction:row;justify-content:space-between;width:100%}
+  .avatar-gallery{max-width:none;gap:7px}
+  .avatar{height:110px}
   .hero-visuals{grid-template-columns:1fr;max-width:none}
   .container{padding:16px 20px}
   .skills-grid{grid-template-columns:1fr}
